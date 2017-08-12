@@ -1,0 +1,29 @@
+{% extends "base/base.html" %}
+{% block titulo %}
+Registro de Transporte
+{% endblock titulo %}
+
+{% block subtitulo %}
+<h2>Registro Transporte</h2>
+
+{% endblock subtitulo %}
+
+
+
+		{% block content %}
+<div class="row">
+	<div class="col-md-7">
+		<form  method="post" accept-charset="utf-8">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit" class="btn btn-success float-right">Guardar</button>
+		</form>
+		</div>
+	<div class="col-md-5">
+	</div>
+</div>
+
+
+		{% endblock content %}
+	
+

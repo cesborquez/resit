@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block titulo %} Titulo {% endblock %}</title>
+    <link rel="stylesheet"  href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet"  href="{% static 'css/shop-item.css'%}">
+    <link rel="stylesheet"  href="{% static 'css/font-awesome.min.css'%}">
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+     
+            {% block navbar %}
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Resit</a>
+            </div>
+
+            <div class="nav navbar-nav navbar-right" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+            {% endblock navbar %}
+       
+        </div>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead"><img src="{% static 'img/logo2.png'%}" class="img-responsive" style ="width:250px;"> <br></p>
+                {% block submenu %}	
+                <div class="list-group">
+                    <a href="{% url 'pedido:pedido_listar' %} " class="list-group-item"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> Pedidos</a>
+                    <a href="{% url 'cliente:cliente_listar' %} " class="list-group-item "><i class="fa fa-users" aria-hidden="true"></i> Clientes</a>
+                    <a href="{% url 'logistica:logistica_listar' %} " class="list-group-item"><i class="fa fa-truck" aria-hidden="true"></i> Transporte</a>
+                    
+                    <a href="{% url 'producto:producto_listar' %} " class="list-group-item"><i class="fa fa-product-hunt" aria-hidden="true"></i> Producto</a>
+
+                     <a href="{% url 'stock:stock_listar' %} " class="list-group-item"><i class="fa fa-database" aria-hidden="true"></i> Stock</a>
+
+
+                    
+                </div>
+                 {% endblock submenu %}
+            </div>
+            <br><br>
+
+            <div class="col-md-9">
+          {% block subtitulo %} <h2>subtitulo</h2> {% endblock subtitulo %}
+          <br>
+         
+          <div class="row">
+              <div class="col-md-3"></div>
+              <div class="col-md-9 ">
+                   <div class="text-right">
+                   {% block cpanel %}
+                   
+                   {% endblock cpanel %}</div>
+              </div>
+          </div>
+              
+          
+          <br>
+             {% block content %}<h5> Bloque del contenido </h5>{% endblock %}
+            </div>
+
+    </div>
+    <!-- /.container -->
+
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                <h5> <p>Copyright &copy; cesborquez | 2017</p> </h5>
+                    
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+     <script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js'%}"></script>
+   
+
+</body>
+
+</html>

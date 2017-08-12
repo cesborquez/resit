@@ -1,0 +1,21 @@
+	{% extends "base/base.html" %}
+
+{% block subtitulo %}
+	<h2>Eliminación de Registro</h2>
+{% endblock subtitulo %}
+
+	{% block content %}
+<div class="row">
+	<div class="col-md-7">
+		<form  method="post" accept-charset="utf-8">
+			{% csrf_token %}
+			<h3>¿Desea eliminar el registro de {{ cliente.nombre }} ?</h3>
+
+			<button type="submit" class="btn btn-danger float-right">Sí, eliminar</button> <a class="btn btn-default" href="{% url 'cliente:cliente_listar' %}">Cancelar </a>
+		</form>
+		</div>
+	<div class="col-md-5">
+	</div>
+</div>
+
+		{% endblock content %}

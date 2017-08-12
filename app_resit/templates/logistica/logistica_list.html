@@ -1,0 +1,104 @@
+{% extends "base/base.html" %}
+{% block titulo %}
+	Transporte
+{% endblock titulo %}
+{% block subtitulo %}
+<h2>Transporte en el sistema</h2>
+{% endblock subtitulo %}
+{% block cpanel %}
+  <a class="btn btn-success right" href="{% url 'logistica:logistica_crear' %}"><i class="fa fa-plus" aria-hidden="true"></i> crear</a>
+{% endblock cpanel %}
+
+{% block content %}
+
+
+<table class="table table-bordered table-hover dataTable text-capitalize">
+	{% if object_list %}
+	<thead>
+		<tr class="active">
+			<td>Conductor</td>
+			<td>Patente</td>
+			<td>Vehiculo</td>
+			<td>Estado</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</thead>
+		{% for logistica in object_list %}
+	
+	<tbody>
+	
+			
+		<tr>
+			<td>{{ logistica.conductor }}</td>
+			<td>{{ logistica.patente }}</td>
+			<td>{{ logistica.vehiculo }}</td>
+
+			{%if logistica.estado == 0%}
+			<td>Disponible</td>
+			
+			{%else%}
+			<td>Ocupado</td>
+			{% endif %}
+		</td>
+		<td>
+				<a class="btn btn-primary" href="{% url 'logistica:logistica_editar' logistica.patente %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+			</td>
+				<td>
+				<a class="btn btn-danger" href="{% url 'logistica:logistica_eliminar' logistica.patente %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+			</td>
+		
+	
+		</tr>
+			{% endfor %}
+
+			{% else %}
+			  No hay registros en el sistema.
+
+			{% endif %}
+	</tbody>
+</table>
+<!-- paginator -->
+    {% if is_paginated %}
+    <nav>
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li>
+          <a href="?page={{ page_obj.previous_page_number }}">
+            <span>Anterior</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+          <a href="#">
+            <span>Anterior</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% for page in paginator.page_range %}
+        <li {% if page == LogisticaList.number %}class="active"{% endif %}>
+          <a href="?page={{ page }}">{{ page }}</a>
+        </li>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li>
+          <a href="?page={{ page_obj.next_page_number }}">
+            <span>Siguiente</span>
+          </a>
+        </li>
+        {% else %}
+        <li {% if not LogisticaList.has_next %}class="disabled"{% endif %}>
+          <a href="#">
+            <span>Siguiente</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
+
+    <!-- End pagintaor -->
+	
+{% endblock content %}

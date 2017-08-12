@@ -1,0 +1,99 @@
+{% extends "base/base.html" %}
+{% block titulo %}
+  Producto
+{% endblock titulo %}
+{% block subtitulo %}
+<h2>Productos en el sistema</h2>
+{% endblock subtitulo %}
+
+{% block cpanel %}
+  <a class="btn btn-success right" href="{% url 'producto:producto_crear' %}"><i class="fa fa-plus" aria-hidden="true"></i> crear</a>
+ 
+</ul>
+{% endblock cpanel %}
+
+{% block content %}
+<table class="table table-bordered table-hover dataTable text-capitalize">
+	
+		{% if object_list %}
+		<thead>
+		<tr class="active">
+			<td>#</td>
+			<td>Nombre</td>
+      <td>Cantidad</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for producto in object_list %}
+
+			
+		<tr>
+			<td>{{ producto.id_prod }}</td>
+			<td>{{ producto.nombre }}</td>
+      <td>{{ producto.Stock.disponible }}</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'producto:producto_editar' producto.id_prod %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+			</td>
+				<td>
+				<a class="btn btn-danger" href="{% url 'producto:producto_eliminar' producto.id_prod %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+			</td>
+		
+		
+		
+		</tr>
+			{% endfor %}
+
+			{% else %}
+			No hay registros en el sistema.
+
+			{% endif %}
+
+
+	</tbody>
+</table>
+ <!-- paginator -->
+    {% if is_paginated %}
+    <nav>
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li>
+          <a href="?page={{ page_obj.previous_page_number }}">
+            <span>Anterior</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+          <a href="#">
+            <span>Anterior</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% for page in paginator.page_range %}
+        <li {% if page == ProductoList.number %}class="active"{% endif %}>
+          <a href="?page={{ page }}">{{ page }}</a>
+        </li>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li>
+          <a href="?page={{ page_obj.next_page_number }}">
+            <span>Siguiente</span>
+          </a>
+        </li>
+        {% else %}
+        <li {% if not ProductoList.has_next %}class="disabled"{% endif %}>
+          <a href="#">
+            <span>Siguiente</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
+
+    <!-- End pagintaor -->
+	
+{% endblock content %}

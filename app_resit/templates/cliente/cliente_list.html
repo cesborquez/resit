@@ -1,0 +1,103 @@
+{% extends "base/base.html" %}
+
+{% block titulo %}
+Cliente
+{% endblock titulo %}
+
+{% block subtitulo %}
+<h2>Clientes en el sistema</h2>
+{% endblock subtitulo %}
+
+{% block cpanel %}
+	<a class="btn btn-success right" href="{% url 'cliente:cliente_crear' %}"><i class="fa fa-plus" aria-hidden="true"></i> crear</a>
+{% endblock cpanel %}
+
+{% block titulo_panel %}
+	Listado de Clientes Activos en el sistema
+{% endblock titulo_panel %}
+{% block content %}
+
+
+<table class="table table-bordered table-hover dataTable text-capitalize">
+	{% if object_list %}
+	<thead >
+		<tr class="active">
+			<td>#</td>
+			<td>Cliente</td>
+			<td>Dirección</td>
+			<td>Comuna</td>
+			<td>Tiempo de Recorrido</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</thead>
+	{% for cliente in object_list %}
+
+	<tbody>
+
+
+		<tr >
+			<td>{{ cliente.cod_cliente }}</td>
+			<td>{{ cliente.nombre }}</td>
+			<td>{{ cliente.direccion }}</td>
+			<td>{{ cliente.comuna }}</td>
+			<td>{{ cliente.tiempo_recorrido }} min.</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'cliente:cliente_editar' cliente.cod_cliente %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+			</td>
+			<td>
+				<a class="btn btn-danger" href="{% url 'cliente:cliente_eliminar' cliente.cod_cliente %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+			</td>
+		</tr>
+		{% endfor %}
+
+		{% else %}
+		No hay registros en el sistema.
+
+		{% endif %}
+	</tbody>
+</table>
+<!-- paginator -->
+{% if is_paginated %}
+<nav>
+	<ul class="pagination">
+		{% if page_obj.has_previous %}
+		<li>
+			<a href="?page={{ page_obj.previous_page_number }}">
+				<span>Anterior</span>
+			</a>
+		</li>
+		{% else %}
+		<li class="disabled">
+			<a href="#">
+				<span>Anterior</span>
+			</a>
+		</li>
+		{% endif %}
+
+		{% for page in paginator.page_range %}
+		<li {% if page == ClienteList.number %}class="active"{% endif %}>
+			<a href="?page={{ page }}">{{ page }}</a>
+		</li>
+		{% endfor %}
+
+		{% if page_obj.has_next %}
+		<li>
+			<a href="?page={{ page_obj.next_page_number }}">
+				<span>Siguiente</span>
+			</a>
+		</li>
+		{% else %}
+		<li {% if not ClienteList.has_next %}class="disabled"{% endif %}>
+			<a href="#">
+				<span>Siguiente</span>
+			</a>
+		</li>
+		{% endif %}
+	</ul>
+</nav>
+{% endif %}
+
+<!-- End pagintaor -->
+
+{% endblock content %}
